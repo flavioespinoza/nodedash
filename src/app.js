@@ -15,23 +15,27 @@ let user_agent;
  * Node App Server
  *
  * @static
- * @memberOf _n
+ * @memberOf _f
  * @since 1.0.0
  * @category _node
  * @param  {} {this.app=express(
  * @example
  *
- * const _n = require('flodash')
+ * const _f = require('flodash')
  *
  * const PORT = 7001
- * _n.app.listen(PORT, () => {
+ * _f.app.listen(PORT, () => {
  *		console.log()
  * })
  *
  *
  */
+const router = express.Router();
 class App {
-    constructor() {
+    constructor(props) {
+        this._balls = (req, res, next) => {
+            next();
+        };
         this._get_data = async (route) => {
             let _test_markets = [
                 {
@@ -49,6 +53,8 @@ class App {
                 resolve(route);
             });
         };
+        this.url = props.url;
+        this.routes = props.routes;
         this.app = express();
         this._config();
         this._routes();
@@ -69,18 +75,19 @@ class App {
         return `https://min-api.cryptocompare.com/data/histominute?fsym=${base}&tsym=${quote}&limit=${_limit}&aggregate=1&e=hitbtc`;
     }
     _routes() {
-        const router = express.Router();
+        lodash_1.default.each(this.routes, (obj) => {
+            if (obj.method === 'get') {
+                router.get(obj.route, obj.cb);
+            }
+            else if (obj.method === 'post') {
+                router.post(obj.route, obj.cb);
+            }
+        });
+        this.app.use('/', router);
+    }
+    _routes2() {
         router.get('/', (req, res) => {
             this._get_data('/').then(response => {
-                let candel_obj_model = {
-                    time: 1539548160,
-                    close: 6398.75,
-                    high: 6399.07,
-                    low: 6395,
-                    open: 6398.17,
-                    volumefrom: 2.94,
-                    volumeto: 18810.2
-                };
                 let exchange_name = 'hitbtc';
                 let market_name = 'BTC_USD';
                 log.blue('crypto_arr', crypto_arr.length);
@@ -105,9 +112,19 @@ class App {
         this.app.use('/', router);
     }
     _rest_client(market_name, url, market_info) {
+        axios_1.default({
+            url: url,
+            method: 'get'
+        })
+            .then((res) => { })
+            .catch((err) => {
+            error_1.error('_rest_client', err);
+        });
+    }
+    _rest_client2(market_name, url, market_info) {
         log.green('market_name', market_name);
-        log.green('url', url);
-        log.green('market_info', market_info);
+        log.cyan('url', url);
+        log.blue('market_info', market_info);
         return new Promise((resolve, reject) => {
             axios_1.default({
                 url: url,
@@ -134,9 +151,9 @@ class App {
                 resolve(res_data);
             })
                 .catch(err => {
-                error_1._error('_rest_client', err);
+                error_1.error('_rest_client', err);
             });
         });
     }
 }
-exports.default = new App().app;
+exports.default = App;

@@ -94,14 +94,14 @@
 	 *
 	 * import _n from 'nodedash'
 	 *
-	 * _n.date('3/14/2019', 'uk')
-	 * // => 14 Mar 2019
-	 *
-	 * _n.addDays('3/6/19', 1, '-')
-	 * // => 03-07-2019
-	 *
-	 * _n.subtractDays('3/6/19', 1, '-')
-	 * // => 03-05-2019
+	 * const options = {
+	 * 		name: '_nodedash'
+	 * 		url: 'localhost'
+	 * }
+	 * _n.app(6001, options, (err, res) => {
+	 *		console.log(res.status)
+	 * })
+	 * // > _nodedash is now listening on http://localhost:6001
 	 */
 	this.import = () => {
 		return null
@@ -154,12 +154,16 @@
 	 * const _n = require('nodedash')
 	 *
 	 * const PORT = 7001
-	 * _n.app.listen(PORT, () => {
+	 * _n.app(PORT, () => {
 	 *		console.log('Listening on port ' + PORT)
 	 * })
 	 * // => Listening on port  7001
 	 */
-	this.app = require('./src/app')
+	const _app = require('./src/app')
+	function _initApp (port, options) {
+		return _n.app.listen(port)
+	}
+	this.app = _initApp
 
 	/*------------------------------------------------------------------------*/
 

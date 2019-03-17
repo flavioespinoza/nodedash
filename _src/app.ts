@@ -3,7 +3,9 @@ import bodyParser = require('body-parser')
 import axios from 'axios'
 import { Request, Response } from 'express'
 import _ from 'lodash'
-import { _error } from './error'
+import { error } from './error'
+import { appendFile } from 'fs'
+import { NextFunction } from 'connect'
 
 const log = require('ololog').configure({ locate: false })
 
@@ -29,8 +31,20 @@ let user_agent: any
  *
  *
  */
-class App {
-	constructor() {
+
+const router = express.Router()
+
+interface Props {
+	url: string
+	routes: Array<{}>
+}
+
+export default class App {
+	url: string
+	routes: Array<{}>
+	constructor(props: Props) {
+		this.url = props.url
+		this.routes = props.routes
 		this.app = express()
 		this._config()
 		this._routes()
@@ -41,7 +55,7 @@ class App {
 	private _config(): void {
 		this.app.use(bodyParser.json())
 		this.app.use(bodyParser.urlencoded({ extended: false }))
-		this.app.use((req: any, res: any, next: any) => {
+		this.app.use((req: Request, res: Response, next: NextFunction) => {
 			user_agent = req.get('User-Agent')
 			next()
 		})
@@ -57,20 +71,21 @@ class App {
 	}
 
 	private _routes() {
-		const router = express.Router()
 
+		_.each(this.routes, (obj: any) => {
+			if (obj.method === 'get') {
+				router.get(obj.route, obj.cb)
+			} else if (obj.method === 'post') {
+				router.post(obj.route, obj.cb)
+			}
+		})
+
+		this.app.use('/', router)
+	}
+
+	private _routes2() {
 		router.get('/', (req: Request, res: Response) => {
 			this._get_data('/').then(response => {
-				let candel_obj_model = {
-					time: 1539548160,
-					close: 6398.75,
-					high: 6399.07,
-					low: 6395,
-					open: 6398.17,
-					volumefrom: 2.94,
-					volumeto: 18810.2
-				}
-
 				let exchange_name = 'hitbtc'
 				let market_name = 'BTC_USD'
 
@@ -102,10 +117,25 @@ class App {
 		this.app.use('/', router)
 	}
 
-	private _rest_client(market_name: string, url: string, market_info: object): Promise<string> {
+	private _balls = (req: Request, res: Response, next: NextFunction) => {
+		next()
+	}
+
+	private _rest_client(market_name: string, url: string, market_info: object) {
+		axios({
+			url: url,
+			method: 'get'
+		})
+			.then((res: object) => {})
+			.catch((err: object) => {
+				error('_rest_client', err)
+			})
+	}
+
+	private _rest_client2(market_name: string, url: string, market_info: object): Promise<string> {
 		log.green('market_name', market_name)
-		log.green('url', url)
-		log.green('market_info', market_info)
+		log.cyan('url', url)
+		log.blue('market_info', market_info)
 
 		return new Promise<string>((resolve, reject) => {
 			axios({
@@ -138,7 +168,7 @@ class App {
 					resolve(res_data)
 				})
 				.catch(err => {
-					_error('_rest_client', err)
+					error('_rest_client', err)
 				})
 		})
 	}
@@ -165,5 +195,3 @@ class App {
 		})
 	}
 }
-
-export default new App().app
