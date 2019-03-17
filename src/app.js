@@ -15,16 +15,16 @@ let user_agent;
  * Node App Server
  *
  * @static
- * @memberOf _f
+ * @memberOf _n
  * @since 1.0.0
  * @category _node
  * @param  {} {this.app=express(
  * @example
  *
- * const _f = require('flodash')
+ * const _n = require('flodash')
  *
  * const PORT = 7001
- * _f.app.listen(PORT, () => {
+ * _n.app.listen(PORT, () => {
  *		console.log()
  * })
  *
