@@ -4,19 +4,25 @@ import axios from 'axios'
 import { Request, Response } from 'express'
 import * as _ from 'lodash'
 import { error } from './error'
-import { appendFile } from 'fs'
 import { NextFunction } from 'connect'
 
-const log = require('ololog').configure({ locate: false })
+const log = require('ololog').configure({locate: false})
 
-let crypto_arr: Array<object> = []
+const crypto_arr: Array<object> = []
+const router = express.Router()
+
 let user_agent: any
 
+interface Props {
+	url: string
+	routes: Array<{}>
+}
+
 /**
- * Node App Server
+ * Node Express App
  *
  * @static
- * @memberOf _f
+ * @memberOf _n
  * @since 1.0.0
  * @category _node
  * @param  {} {this.app=express(
@@ -31,17 +37,10 @@ let user_agent: any
  *
  *
  */
-
-const router = express.Router()
-
-interface Props {
-	url: string
-	routes: Array<{}>
-}
-
 export default class App {
 	url: string
 	routes: Array<{}>
+
 	constructor(props: Props) {
 		this.url = props.url
 		this.routes = props.routes
@@ -54,7 +53,7 @@ export default class App {
 
 	private _config(): void {
 		this.app.use(bodyParser.json())
-		this.app.use(bodyParser.urlencoded({ extended: false }))
+		this.app.use(bodyParser.urlencoded({extended: false}))
 		this.app.use((req: Request, res: Response, next: NextFunction) => {
 			user_agent = req.get('User-Agent')
 			next()
@@ -72,11 +71,12 @@ export default class App {
 
 	private _routes() {
 
-		_.each(this.routes, (obj: any) => {
-			if (obj.method === 'get') {
-				router.get(obj.route, obj.cb)
-			} else if (obj.method === 'post') {
-				router.post(obj.route, obj.cb)
+		_.each(this.routes, (route: any) => {
+			if (route.method === 'get') {
+				router.get(route.route, route.cb)
+
+			} else if (route.method === 'post') {
+				router.post(route.route, route.cb)
 			}
 		})
 
@@ -126,7 +126,8 @@ export default class App {
 			url: url,
 			method: 'get'
 		})
-			.then((res: object) => {})
+			.then((res: object) => {
+			})
 			.catch((err: object) => {
 				error('_rest_client', err)
 			})

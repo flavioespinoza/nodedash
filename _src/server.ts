@@ -1,13 +1,13 @@
 /// <reference path='./index.d.ts' />
-import { _log } from './logdash'
+import bodyParser = require('body-parser')
+import router from 'express'
+import axios from 'axios'
+import { error } from './error'
 import log from 'ololog'
 import App from './app'
-import axios from 'axios'
 import _ from 'lodash'
 import { Response, Request } from 'express-serve-static-core'
 import { NextFunction } from 'connect'
-
-const bodyParser = require('body-parser')
 
 const PORT = 8080
 
@@ -75,42 +75,14 @@ const routes = [
 				name: 'market_list'
 			})
 		}
-	},
-	{
-		method: 'get',
-		route: '/market/btc_usdt',
-		body: {
-			query: {
-				method: 'market',
-				params: {
-					exchange: 'hitbtc',
-					interval: 15,
-					limit: 20,
-					market: {
-						base: 'BTC',
-						quote: 'USDT',
-						symbol: 'BTC/USDT'
-					}
-				}
-			}
-		},
-		cb: (req: Request, res: Response) => {
-			log.blue(req.body)
-			console.log(req)
-
-			res.status(200).send({
-				route: '/market/btc_usdt',
-				name: '/market/btc_usdt'
-			})
-		}
 	}
 ]
 
-const app = new App({ url: 'balls', routes: routes }).app
+const app = new App({ url: 'https://mydash.com', routes: routes }).app
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.listen(PORT, () => {
-	log.lightYellow(`listening on port: ${PORT}`)
+	log.magenta(`listening on port: ${PORT}`)
 })

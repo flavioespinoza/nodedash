@@ -16,13 +16,14 @@ const axios_1 = __importDefault(require("axios"));
 const _ = __importStar(require("lodash"));
 const error_1 = require("./error");
 const log = require('ololog').configure({ locate: false });
-let crypto_arr = [];
+const crypto_arr = [];
+const router = express.Router();
 let user_agent;
 /**
- * Node App Server
+ * Node Express App
  *
  * @static
- * @memberOf _f
+ * @memberOf _n
  * @since 1.0.0
  * @category _node
  * @param  {} {this.app=express(
@@ -37,7 +38,6 @@ let user_agent;
  *
  *
  */
-const router = express.Router();
 class App {
     constructor(props) {
         this._balls = (req, res, next) => {
@@ -82,12 +82,12 @@ class App {
         return `https://min-api.cryptocompare.com/data/histominute?fsym=${base}&tsym=${quote}&limit=${_limit}&aggregate=1&e=hitbtc`;
     }
     _routes() {
-        _.each(this.routes, (obj) => {
-            if (obj.method === 'get') {
-                router.get(obj.route, obj.cb);
+        _.each(this.routes, (route) => {
+            if (route.method === 'get') {
+                router.get(route.route, route.cb);
             }
-            else if (obj.method === 'post') {
-                router.post(obj.route, obj.cb);
+            else if (route.method === 'post') {
+                router.post(route.route, route.cb);
             }
         });
         this.app.use('/', router);
@@ -123,7 +123,8 @@ class App {
             url: url,
             method: 'get'
         })
-            .then((res) => { })
+            .then((res) => {
+        })
             .catch((err) => {
             error_1.error('_rest_client', err);
         });
