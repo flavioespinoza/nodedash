@@ -2,11 +2,18 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios_1 = __importDefault(require("axios"));
-const lodash_1 = __importDefault(require("lodash"));
+const _ = __importStar(require("lodash"));
 const error_1 = require("./error");
 const log = require('ololog').configure({ locate: false });
 let crypto_arr = [];
@@ -75,7 +82,7 @@ class App {
         return `https://min-api.cryptocompare.com/data/histominute?fsym=${base}&tsym=${quote}&limit=${_limit}&aggregate=1&e=hitbtc`;
     }
     _routes() {
-        lodash_1.default.each(this.routes, (obj) => {
+        _.each(this.routes, (obj) => {
             if (obj.method === 'get') {
                 router.get(obj.route, obj.cb);
             }
@@ -92,7 +99,7 @@ class App {
                 let market_name = 'BTC_USD';
                 log.blue('crypto_arr', crypto_arr.length);
                 log.blue('crypto_arr', crypto_arr[0]);
-                lodash_1.default.each(crypto_arr, (candle_obj) => {
+                _.each(crypto_arr, (candle_obj) => {
                     let _id = `${exchange_name}__${market_name}___${candle_obj.timestamp}`;
                     let update = {
                         index: 'hitbtc_candles_btc_usd',
@@ -132,10 +139,10 @@ class App {
             })
                 .then(res => {
                 let res_data = res.data;
-                lodash_1.default.each(res_data.Data, obj => {
+                _.each(res_data.Data, (obj) => {
                     let timestamp = obj.time * 1000;
                     let date = new Date(timestamp);
-                    obj.volume = lodash_1.default.add(obj.volumeto, obj.volumeto);
+                    obj.volume = _.add(obj.volumeto, obj.volumeto);
                     crypto_arr.push({
                         timestamp: timestamp,
                         date: date,

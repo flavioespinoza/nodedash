@@ -2,7 +2,7 @@ import express = require('express')
 import bodyParser = require('body-parser')
 import axios from 'axios'
 import { Request, Response } from 'express'
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { error } from './error'
 import { appendFile } from 'fs'
 import { NextFunction } from 'connect'
@@ -145,7 +145,7 @@ export default class App {
 				.then(res => {
 					let res_data = res.data
 
-					_.each(res_data.Data, obj => {
+					_.each(res_data.Data, (obj: any) => {
 						let timestamp = obj.time * 1000
 
 						let date = new Date(timestamp)

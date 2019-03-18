@@ -1,57 +1,38 @@
-/**
- * @param  {} 'ololog'
- * @param  {false}} .configure({locate
- */
+/// <reference path='./index.d.ts' />
+import { _log } from './logdash'
+import log from 'ololog'
 import App from './app'
 import axios from 'axios'
 import _ from 'lodash'
-import bodyParser from 'body-parser'
 import { Response, Request } from 'express-serve-static-core'
 import { NextFunction } from 'connect'
 
-const multer = require('multer')
-const upload = multer()
-
-const log = require('ololog').configure({
-	locate: false
-})
-
-const candel_obj_model = {
-	time: 1539548160,
-	close: 6398.75,
-	high: 6399.07,
-	low: 6395,
-	open: 6398.17,
-	volumefrom: 2.94,
-	volumeto: 18810.2
-}
+const bodyParser = require('body-parser')
 
 const PORT = 8080
+
 const routes = [
 	{
 		method: 'get',
 		route: '/home',
 		name: 'home',
-		body: {
-			query: {
-				method: 'authenticate',
-				params: {
-					username: 'flavioespinoza',
-					email: 'flavio.espinoza@gmail.com'
-				}
+		query: {
+			method: 'authenticate',
+			params: {
+				username: 'flavioespinoza',
+				email: 'flavio.espinoza@gmail.com'
 			}
 		},
-		cb: (req: Request, res: Response, next: NextFunction) => {
+		cb: (req: Request, res: Response) => {
 
-			const user_agent = req.get('User-Agent')
-			const body = req.body
-
-			log.red(body)
+			const keys = _.keys(req)
 
 			res.status(200).send({
 				route: '/',
-				name: 'home'
+				name: 'home',
+				keys: keys
 			})
+
 		}
 	},
 	{

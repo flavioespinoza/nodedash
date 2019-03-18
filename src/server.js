@@ -3,45 +3,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @param  {} 'ololog'
- * @param  {false}} .configure({locate
- */
+const ololog_1 = __importDefault(require("ololog"));
 const app_1 = __importDefault(require("./app"));
-const log = require('ololog').configure({
-    locate: false
-});
-const candel_obj_model = {
-    time: 1539548160,
-    close: 6398.75,
-    high: 6399.07,
-    low: 6395,
-    open: 6398.17,
-    volumefrom: 2.94,
-    volumeto: 18810.2
-};
+const lodash_1 = __importDefault(require("lodash"));
+const bodyParser = require('body-parser');
 const PORT = 8080;
 const routes = [
     {
         method: 'get',
         route: '/home',
         name: 'home',
-        body: {
-            query: {
-                method: 'authenticate',
-                params: {
-                    username: 'flavioespinoza',
-                    email: 'flavio.espinoza@gmail.com'
-                }
+        query: {
+            method: 'authenticate',
+            params: {
+                username: 'flavioespinoza',
+                email: 'flavio.espinoza@gmail.com'
             }
         },
         cb: (req, res) => {
-            const user_agent = req.get('User-Agent');
-            const body = req.body;
-            log.red(body);
+            const keys = lodash_1.default.keys(req);
             res.status(200).send({
                 route: '/',
-                name: 'home'
+                name: 'home',
+                keys: keys
             });
         }
     },
@@ -77,7 +61,7 @@ const routes = [
             }
         },
         cb: (req, res) => {
-            log.blue(req);
+            ololog_1.default.blue(req);
             console.log(req);
             res.status(200).send({
                 route: '/market_list',
@@ -104,7 +88,7 @@ const routes = [
             }
         },
         cb: (req, res) => {
-            log.blue(req);
+            ololog_1.default.blue(req.body);
             console.log(req);
             res.status(200).send({
                 route: '/market/btc_usdt',
@@ -113,5 +97,9 @@ const routes = [
         }
     }
 ];
-const _app = new app_1.default({ url: 'balls', routes: routes }).app;
-_app.listen(PORT, 'localhost', 1, () => { });
+const app = new app_1.default({ url: 'balls', routes: routes }).app;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.listen(PORT, () => {
+    ololog_1.default.lightYellow(`listening on port: ${PORT}`);
+});
