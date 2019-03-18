@@ -59,3 +59,4 @@ const routes = fs
 // router.get('/list_simple', jwtAuth, getAuthenticatedUser)
 // router.get('/list_compound', jwtAuth, getAuthenticatedUser)
 */
+//# sourceMappingURL=router.js.map

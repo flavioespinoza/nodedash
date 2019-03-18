@@ -52,3 +52,4 @@ exports.error = (method, err) => {
         info: _.assign({}, err)
     };
 };
+//# sourceMappingURL=error.js.map

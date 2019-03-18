@@ -39,3 +39,4 @@ exports._log = {
         console.log(c.bgMagenta(c.white(` Warn: ${msg} `)));
     }
 };
+//# sourceMappingURL=logdash.js.map

@@ -37,9 +37,10 @@ const routes = [
 
 const PORT = 8080
 
-const app = new _n.App({url: 'https://mydash.com', routes: routes}).app
+const app = new App({url: 'https://mydash.com', routes: routes}).app
 
 app.use(bodyParser.json())
+
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.listen(PORT, () => {

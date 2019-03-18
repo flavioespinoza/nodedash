@@ -6,10 +6,11 @@ import * as _ from 'lodash'
 import { error } from './error'
 import { NextFunction } from 'connect'
 
-const log = require('ololog').configure({locate: false})
+const log = require('ololog').configure({ locate: false })
+
+const router = express.Router()
 
 const crypto_arr: Array<object> = []
-const router = express.Router()
 
 let user_agent: any
 
@@ -18,8 +19,53 @@ interface Props {
 	routes: Array<{}>
 }
 
-
-
+/**
+ * Node App Server
+ *
+ * @static
+ * @memberOf _n
+ * @since 1.0.0
+ * @category App
+ * @param  {} {this.app=express(
+ * @example
+ *
+ * const _n = require('nodedash')
+ *
+ * const routes = [
+ *     	{
+ * 				 method: 'get',
+ * 				 route: '/home',
+ * 				 name: 'home',
+ * 				 cb: (req: Request, res: Response) => {
+ * 					 res.status(200).send({
+ * 						 route: '/',
+ * 						 name: 'home'
+ * 					 })
+ * 				 }
+ * 	 		},
+ *   		{
+ * 				 method: 'get',
+ * 				 route: '/market_list',
+ * 				 name: 'market_list',
+ * 				 cb: (req: Request, res: Response) => {
+ * 					 res.status(200).send({
+ * 						 route: '/market_list',
+ * 						 name: 'market_list'
+ * 					 })
+ * 				 }
+ * 	 		}
+ * ]
+ *
+ * const PORT = 8080
+ *
+ * const app = new _n.App({url: 'https://mydash.com', routes: routes}).app
+ *
+ * app.use(bodyParser.json())
+ * app.use(bodyParser.urlencoded({extended: true}))
+ *
+ * app.listen(PORT, () => { log.magenta(`listening on port: ${PORT}`) })
+ *
+ */
 export default class App {
 	url: string
 	routes: Array<{}>
@@ -36,7 +82,7 @@ export default class App {
 
 	private _config(): void {
 		this.app.use(bodyParser.json())
-		this.app.use(bodyParser.urlencoded({extended: false}))
+		this.app.use(bodyParser.urlencoded({ extended: false }))
 		this.app.use((req: Request, res: Response, next: NextFunction) => {
 			user_agent = req.get('User-Agent')
 			next()
@@ -53,11 +99,9 @@ export default class App {
 	}
 
 	private _routes() {
-
 		_.each(this.routes, (route: any) => {
 			if (route.method === 'get') {
 				router.get(route.route, route.cb)
-
 			} else if (route.method === 'post') {
 				router.post(route.route, route.cb)
 			}
@@ -109,8 +153,7 @@ export default class App {
 			url: url,
 			method: 'get'
 		})
-			.then((res: object) => {
-			})
+			.then((res: object) => {})
 			.catch((err: object) => {
 				error('_rest_client', err)
 			})
