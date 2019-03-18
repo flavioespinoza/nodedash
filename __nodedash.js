@@ -6,11 +6,6 @@
  * Based on lodash.js 5.0.0 <https://lodash.com/>
  * Based on lodash.js by John-David Dalton <https://github.com/jdalton>
  */
-
-import App from './app'
-import User from './user'
-import error from './error'
-
 ;(function() {
 	/** Used as the semantic version number. */
 	var __package = require('./package.json')
@@ -144,6 +139,63 @@ import error from './error'
 
 	/*------------------------------------------------------------------------*/
 
+	// TYPESCRIPT NODE
+
+	/**
+	 * Node App Server
+	 *
+	 * @static
+	 * @memberOf _n
+	 * @since 1.0.0
+	 * @category App
+	 * @param  {} {this.app=express(
+	 * @example
+	 *
+	 * const _n = require('nodedash')
+	 *
+	 * const PORT = 7001
+	 * _n.app(PORT, () => {
+	 *		console.log('Listening on port ' + PORT)
+	 * })
+	 * // => Listening on port  7001
+	 */
+	const _app = require('./src/app')
+	function _initApp (port, options) {
+		return _n.app.listen(port)
+	}
+	this.app = _initApp
+
+	/*------------------------------------------------------------------------*/
+
+	/**
+	 * Error Handler
+	 *
+	 * @static
+	 * @memberOf _n
+	 * @since 1.0.0
+	 * @category Util
+	 * @param  {string} Method Name
+	 * @param  {object} Error Object
+	 * @returns {object} and logs error in console
+	 * @example
+	 *
+	 * const _n = require('nodedash')
+	 * const axios = require('axios')
+	 *
+	 * const getStuff = async (() => {
+	 * 	try {
+	 * 		const getData = await axios('https://bullshit.foobars')
+	 * 		return getData
+	 * 	} catch (err) {
+	 * 		return _n.error('getStuff', err)
+	 * 	}
+	 * })
+	 * // => { method: 'getStuff', error: { msg: '404 not found' }}
+	 */
+	this.error = require('./src/error')
+
+	/*------------------------------------------------------------------------*/
+
 	/**
 	 * The semantic version number.
 	 * @private
@@ -152,12 +204,6 @@ import error from './error'
 	 * @type {string}
 	 */
 	nodedash.VERSION = VERSION
-
-	nodedash.App = App
-
-	nodedash.User = User
-
-	nodedash.Error = error
 
 	/*--------------------------------------------------------------------------*/
 

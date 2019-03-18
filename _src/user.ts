@@ -1,22 +1,18 @@
 
 /**
- * Node App Server
+ * User
  *
  * @static
- * @memberOf _n
+ * @memberOf _f
  * @since 1.0.0
- * @category _node
+ * @category Import
  * @param  {} {this.app=express(
  * @example
  *
  * const _f = require('flodash')
  *
  * const PORT = 7001
- * _f.app.listen(PORT, () => {
- *		console.log()
- * })
- *
- *
+ * _f.user = new User({name: 'flavio', email: 'flavio.espinoza@gmail.com'})
  */
 export default class User {
 
@@ -32,4 +28,3 @@ export default class User {
 		return `Hello ${this.name}! ${this.greeting}`
 	}
 }
-

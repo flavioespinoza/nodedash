@@ -36,7 +36,7 @@ npm manifest:
   		"start": "node ./src/server.js",
   		"debug": "nodemon -r esm --inspect ./_src/server.ts",
           "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production"
-          "roll": "rollup main.js --file bundle.js --format cjs"
+          "roll": "rollup src/main.js --file _nodedash.js --format cjs"
   	},
   	"repository": {
   		"type": "git",

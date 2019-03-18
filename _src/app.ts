@@ -18,13 +18,14 @@ interface Props {
 	routes: Array<{}>
 }
 
+
 /**
- * Node Express App
+ * App
  *
  * @static
- * @memberOf _n
+ * @memberOf _f
  * @since 1.0.0
- * @category _node
+ * @category Import
  * @param  {} {this.app=express(
  * @example
  *
@@ -34,8 +35,7 @@ interface Props {
  * _f.app.listen(PORT, () => {
  *		console.log()
  * })
- *
- *
+ * // => disco!
  */
 export default class App {
 	url: string

@@ -11,8 +11,8 @@
 		"mon": "nodemon -r esm ./src/server.js",
 		"start": "node ./src/server.js",
 		"debug": "nodemon -r esm --inspect ./_src/server.ts",
-        "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production"
-        "roll": "rollup main.js --file bundle.js --format cjs"
+        "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
+        "roll": "rollup -r esm src/main.js --file nodedash.js --format cjs"
 	},
 	"repository": {
 		"type": "git",

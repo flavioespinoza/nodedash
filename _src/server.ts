@@ -78,11 +78,12 @@ const routes = [
 	}
 ]
 
-const app = new App({ url: 'https://mydash.com', routes: routes }).app
+const app = new App({url: 'https://mydash.com', routes: routes}).app
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.listen(PORT, () => {
 	log.magenta(`listening on port: ${PORT}`)
 })
+

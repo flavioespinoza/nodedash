@@ -1,8 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
+'use strict';
+
+var __importDefault = (undefined && undefined.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var __importStar = (this && this.__importStar) || function (mod) {
+var __importStar = (undefined && undefined.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
@@ -23,9 +24,9 @@ let user_agent;
  * App
  *
  * @static
- * @memberOf _f
+ * @memberOf _n
  * @since 1.0.0
- * @category Import
+ * @category _node
  * @param  {} {this.app=express(
  * @example
  *
@@ -100,12 +101,6 @@ class App {
                 log.blue('crypto_arr', crypto_arr[0]);
                 _.each(crypto_arr, (candle_obj) => {
                     let _id = `${exchange_name}__${market_name}___${candle_obj.timestamp}`;
-                    let update = {
-                        index: 'hitbtc_candles_btc_usd',
-                        type: 'hitbtc_market',
-                        id: _id,
-                        body: candle_obj
-                    };
                 });
                 res.status(200).send(crypto_arr);
             });
@@ -164,3 +159,59 @@ class App {
     }
 }
 exports.default = App;
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * User
+ *
+ * @static
+ * @memberOf _n
+ * @since 1.0.0
+ * @category _node
+ * @param  {} {this.app=express(
+ * @example
+ *
+ * const _f = require('flodash')
+ *
+ * const PORT = 7001
+ * _f.user = new User({name: 'flavio', email: 'flavio.espinoza@gmail.com'})
+ */
+class User {
+    constructor(name, greeting) {
+        this.name = name;
+        this.greeting = greeting;
+    }
+    greet() {
+        return `Hello ${this.name}! ${this.greeting}`;
+    }
+}
+exports.default = User;
+
+Object.defineProperty(exports, "__esModule", { value: true });
+require('ansicolor').nice;
+const log$1 = require('ololog').configure({ locate: false });
+const _$1 = require('lodash');
+/**
+ * Error
+ *
+ * @static
+ * @memberOf _n
+ * @since 1.0.0
+ * @category _node
+ * @param  {} {this.app=express(
+ * @example
+ *
+ * const _f = require('flodash')
+ *
+ * const PORT = 7001
+ * _f.error('someMethodName', err)
+ * // => disco!
+ */
+exports.error = (method, err) => {
+    log$1.lightYellow(`${method} ERROR:`, err.message);
+    return {
+        success: false,
+        method: method,
+        info: _$1.assign({}, err)
+    };
+};
