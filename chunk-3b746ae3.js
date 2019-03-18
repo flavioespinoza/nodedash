@@ -1,4 +1,5 @@
-"use strict";
+'use strict';
+
 /**
  * Error
  *
@@ -34,4 +35,3 @@ function error(method, err) {
     };
 }
 exports.default = error;
-//# sourceMappingURL=error.js.map

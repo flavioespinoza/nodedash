@@ -36,20 +36,26 @@
 		"url": "https://github.com/flavioespinoza/nodedash/blob/master/methods/"
 	},
 	"homepage": "https://github.com/flavioespinoza/nodedash#readme",
-	"dependencies": {
-		"@flavioespinoza/log_log": "^1.0.52",
+	"devDependencies": {
+		"@flavioespinoza/log_log": "^1.0.56",
 		"@types/axios": "^0.14.0",
+		"@types/colors": "^1.2.1",
 		"@types/express": "^4.16.1",
 		"@types/lodash": "^4.14.123",
 		"@types/uuid": "^3.4.4",
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
 		"chance": "^1.0.16",
+		"colors": "^1.3.3",
 		"docdown": "^0.7.3",
+		"esm": "^3.2.18",
 		"express": "^4.16.4",
 		"lodash": "^4.17.10",
 		"markdown-doctest": "^0.9.1",
+		"multer": "^1.4.1",
 		"ololog": "^1.1.103",
+		"rollup-plugin-commonjs": "^9.2.1",
+		"rollup-plugin-node-resolve": "^4.0.1",
 		"ts-jest": "^23.10.5",
 		"ts-node": "^8.0.3",
 		"ts-node-dev": "^1.0.0-pre.32",
@@ -64,12 +70,5 @@
 		"lib": "lib",
 		"test": "test"
 	},
-	"devDependencies": {
-		"@types/ansi-colors": "^3.2.0",
-		"ansi-colors": "^3.2.4",
-		"esm": "^3.2.18",
-		"multer": "^1.4.1",
-		"rollup-plugin-commonjs": "^9.2.1",
-		"rollup-plugin-node-resolve": "^4.0.1"
-	}
+	"dependencies": {}
 }

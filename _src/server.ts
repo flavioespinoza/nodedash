@@ -1,5 +1,5 @@
-/// <reference path='./index.d.ts' />
-import bodyParser = require('body-parser')
+/// <reference path='./custom.d.ts' />
+import bodyParser from 'body-parser'
 import log from 'ololog'
 import App from './app'
 import _ from 'lodash'

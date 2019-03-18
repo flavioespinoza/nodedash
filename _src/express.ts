@@ -18,9 +18,9 @@ interface Props {
 	routes: Array<{}>
 }
 
-/** -- App -----------------------------------------------------------------------
+/** -- Express -----------------------------------------------------------------------
  *
- * App
+ * Node Express app
  *
  * @static
  * @memberOf _node
@@ -39,7 +39,7 @@ interface Props {
  * 	routes: routes
  * }
  *
- * const app = new _node.App(options).app
+ * const app = new _node.express(options).app
  *
  * app.listen(PORT, () => {
  * 	console.log(`app listening on port: ${PORT}`)
@@ -48,7 +48,7 @@ interface Props {
  *
  */
 
-export default class App {
+export default class Express {
 	url: string
 	routes: Array<{}>
 

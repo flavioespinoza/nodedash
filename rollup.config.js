@@ -3,10 +3,10 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 
 export default {
-	input: `src/rollup__.js`,
+	input: `src/rollup___.js`,
 	output: {
-		file: 'bundle.js',
-		format: 'iife'
+		dir: './',
+		format: 'cjs'
 	},
 	name: 'nodedash',
 	plugins: [
@@ -32,7 +32,7 @@ export default {
 			browser: true, // Default: false
 
 			// not all files you want to resolve are .js files
-			extensions: ['.mjs', '.js', '.jsx', '.json'], // Default: [ '.mjs', '.js', '.json', '.node' ]
+			extensions: ['.js'], // Default: [ '.mjs', '.js', '.json', '.node' ]
 
 			// whether to prefer built-in modules (e.g. `fs`, `path`) or
 			// local ones with the same names
@@ -60,10 +60,10 @@ export default {
 		commonjs({
 			// non-CommonJS modules will be ignored, but you can also
 			// specifically include/exclude files
-			include: 'node_modules/**', // Default: undefined
-			exclude: ['node_modules/foo/**', 'node_modules/bar/**'], // Default: undefined
+			// include: 'node_modules/**', // Default: undefined
+			// exclude: ['node_modules/foo/**', 'node_modules/bar/**'], // Default: undefined
 			// these values can also be regular expressions
-			// include: /node_modules/
+			include: /node_modules/,
 
 			// search for files other than .js files (must already
 			// be transpiled by a previous plugin!)

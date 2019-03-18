@@ -1,4 +1,3 @@
-import log from 'ololog'
 /**
  * Error
  *
@@ -26,7 +25,7 @@ import log from 'ololog'
  */
 
  export default function error(method: string, err: any) {
-	log.lightYellow(`${method} ERROR:`, err.message)
+	console.log(`${method} ERROR:`, err.message)
 	return {
 		success: false,
 		method: method,

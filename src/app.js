@@ -11,60 +11,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const bodyParser = require("body-parser");
+const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const axios_1 = __importDefault(require("axios"));
 const lodash_1 = __importDefault(require("lodash"));
 const error_1 = __importDefault(require("./error"));
-const ololog_1 = __importDefault(require("ololog"));
-const router = express.Router();
+const router = express_1.default.Router();
 const crypto_arr = [];
 let user_agent;
-/**
- * Node App Server
+/** -- App -----------------------------------------------------------------------
+ *
+ * App
  *
  * @static
- * @memberOf _n
- * @since 1.0.0
+ * @memberOf _node
  * @category App
- * @param  {} {this.app=express(
+ * @param {object} options
+ * @param {{options:url}} url
+ * @param {{options:routes}} routes
  * @example
  *
- * const _n = require('nodedash')
+ * const _node = require('node_dash')
  *
- * const routes = [
- *     	{
- * 				 method: 'get',
- * 				  route: '/home',
- * 				 name: 'home',
- * 				 cb: (req: Request, res: Response) => {
- * 					 res.status(200).send({
- * 						 route: '/',
- * 						 name: 'home'
- * 					 })
- * 				 }
- * 	 		},
- *   		   {
- * 				 method: 'get',
- * 				 route: '/market_list',
- * 				 name: 'market_list',
- * 				 cb: (req: Request, res: Response) => {
- * 					 res.status(200).send({
- * 						 route: '/market_list',
- * 						 name: 'market_list'
- * 					 })
- * 				 }
- * 	 		}
- * ]
+ * const PORT = process.env.PORT || 6001
+ * const routes = {} // See _node.routes() method for configuration
+ * const options = {
+ * 	url: 'yoursite.com',
+ * 	routes: routes
+ * }
  *
- * const PORT = 8080
+ * const app = new _node.App(options).app
  *
- * const app = new _n.App({url: 'https://mydash.com', routes: routes}).app
- *
- * app.use(bodyParser.json())
- * app.use(bodyParser.urlencoded({extended: true}))
- *
- * app.listen(PORT, () => { log.magenta(`listening on port: ${PORT}`) })
+ * app.listen(PORT, () => {
+ * 	console.log(`app listening on port: ${PORT}`)
+ * })
+ * //=> app listening on port: 6001
  *
  */
 class App {
@@ -91,13 +72,13 @@ class App {
         });
         this.url = props.url;
         this.routes = props.routes;
-        this.app = express();
+        this.app = express_1.default();
         this._config();
         this._routes();
     }
     _config() {
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(body_parser_1.default.json());
+        this.app.use(body_parser_1.default.urlencoded({ extended: false }));
         this.app.use((req, res, next) => {
             user_agent = req.get('User-Agent');
             next();
@@ -126,8 +107,6 @@ class App {
             this._get_data('/').then(response => {
                 let exchange_name = 'hitbtc';
                 let market_name = 'BTC_USD';
-                ololog_1.default.blue('crypto_arr', crypto_arr.length);
-                ololog_1.default.blue('crypto_arr', crypto_arr[0]);
                 lodash_1.default.each(crypto_arr, (candle_obj) => {
                     let _id = `${exchange_name}__${market_name}___${candle_obj.timestamp}`;
                     let update = {
@@ -141,7 +120,6 @@ class App {
             });
         });
         router.post('/', (req, res) => {
-            ololog_1.default.lightYellow('post', '/');
             const data = req.body;
             res.status(200).send(data);
         });
@@ -158,9 +136,6 @@ class App {
         });
     }
     _rest_client2(market_name, url, market_info) {
-        ololog_1.default.green('market_name', market_name);
-        ololog_1.default.cyan('url', url);
-        ololog_1.default.blue('market_info', market_info);
         return new Promise((resolve, reject) => {
             axios_1.default({
                 url: url,
