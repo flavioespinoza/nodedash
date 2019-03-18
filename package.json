@@ -1,6 +1,6 @@
 {
 	"name": "nodedash",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Node v10 typescript test driven web app",
 	"main": "nodedash.js",
 	"scripts": {
