@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -19,30 +27,12 @@ const log = require('ololog').configure({ locate: false });
 const crypto_arr = [];
 const router = express.Router();
 let user_agent;
-/**
- * App
- *
- * @static
- * @memberOf _f
- * @since 1.0.0
- * @category Import
- * @param  {} {this.app=express(
- * @example
- *
- * const _f = require('flodash')
- *
- * const PORT = 7001
- * _f.app.listen(PORT, () => {
- *		console.log()
- * })
- * // => disco!
- */
 class App {
     constructor(props) {
         this._balls = (req, res, next) => {
             next();
         };
-        this._get_data = async (route) => {
+        this._get_data = (route) => __awaiter(this, void 0, void 0, function* () {
             let _test_markets = [
                 {
                     base: 'BTC',
@@ -54,11 +44,11 @@ class App {
             let _base = _test_markets[0].base;
             let _quote = _test_markets[0].quote;
             let _url = this._url(_base, _quote, 2);
-            await this._rest_client(_market_name, _url, _test_markets[0]);
+            yield this._rest_client(_market_name, _url, _test_markets[0]);
             return new Promise((resolve, reject) => {
                 resolve(route);
             });
-        };
+        });
         this.url = props.url;
         this.routes = props.routes;
         this.app = express();
@@ -164,3 +154,4 @@ class App {
     }
 }
 exports.default = App;
+//# sourceMappingURL=app.js.map

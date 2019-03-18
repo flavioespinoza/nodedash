@@ -20,24 +20,7 @@ const log = require('ololog').configure({ locate: false });
 const crypto_arr = [];
 const router = express.Router();
 let user_agent;
-/**
- * App
- *
- * @static
- * @memberOf _f
- * @since 1.0.0
- * @category Import
- * @param  {} {this.app=express(
- * @example
- *
- * const _f = require('flodash')
- *
- * const PORT = 7001
- * _f.app.listen(PORT, () => {
- *		console.log()
- * })
- * // => disco!
- */
+
 class App {
     constructor(props) {
         this._balls = (req, res, next) => {
@@ -165,20 +148,7 @@ var App$1 = /*#__PURE__*/Object.freeze({
 });
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * User
- *
- * @static
- * @memberOf _n
- * @since 1.0.0
- * @category App
- * @param  {} {this.app=express(
- * @example
- *
- * const _n = require('nodedash')
- *
- * const user = new _n.User({name: 'flavio', email: 'flavio.espinoza@gmail.com'})
- */
+
 class User {
     constructor(name, greeting) {
         this.name = name;
@@ -198,47 +168,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require('ansicolor').nice;
 const log$1 = require('ololog').configure({ locate: false });
 const _$1 = require('lodash');
-/**
- * Error
- *
- * @static
- * @memberOf _f
- * @since 1.0.0
- * @category Import
- * @param  {} {this.app=express(
- * @example
- *
- * const _n = require('nodedash')
- * const axios = require('axios')
- *
- * const getStuff = async (url) => {
- * 	  try {
- * 		return await axios(url)
- * 	  } catch (err) {
- * 	  	return _n.error('getStuff', err)
- * 	  }
- * }
- *
- *
- * console.log(getStuff('https://bullshit.foobars'))
- * // => getStuff ERROR: getaddrinfo ENOTFOUND bullshit.foobars bullshit.foobars:443
- *
- *
- * console.log(getStuff('https://api.hitbtc.com/api/2/public/ticker/btcusd'))
- * 	// => {
- * 	// 		 ask: '4015.72',
- *  // 		 bid: '4015.71',
- *  // 		 last: '4015.78',
- *  // 		 open: '3973.59',
- *  // 		 low: '3951.00',
- *  // 		 high: '4034.32',
- *  // 		 volume: '11198.74531',
- *  // 		 volumeQuote: '44641165.4241766',
- *  // 		 timestamp: '2019-03-18T03:41:51.571Z',
- *  // 		 symbol: 'BTCUSD'
- *  // 	  }
- *
- */
+
 exports.error = (method, err) => {
     log$1.lightYellow(`${method} ERROR:`, err.message);
     return {
@@ -288,8 +218,6 @@ var error = /*#__PURE__*/Object.freeze({
 
 	/*------------------------------------------------------------------------*/
 
-	/*------------------------------------------------------------------------*/
-
 	/**
 	 * @private
 	 * @name _n
@@ -308,7 +236,6 @@ var error = /*#__PURE__*/Object.freeze({
 	 * Using `yarn`
 	 *
 	 * @static
-	 * @memberOf _n
 	 * @since 1.0.0
 	 * @category Install
 	 * @example
@@ -323,7 +250,6 @@ var error = /*#__PURE__*/Object.freeze({
 	 * Using `npm`
 	 *
 	 * @static
-	 * @memberOf _n
 	 * @since 1.0.0
 	 * @category Install
 	 * @example
@@ -338,21 +264,11 @@ var error = /*#__PURE__*/Object.freeze({
 	 * Import using `esm` or `TypeScript`
 	 *
 	 * @static
-	 * @memberOf _n
 	 * @since 1.0.0
 	 * @category Import
 	 * @example
 	 *
-	 * import _n from 'nodedash'
-	 *
-	 * const options = {
-	 * 		name: '_nodedash'
-	 * 		url: 'localhost'
-	 * }
-	 * _n.app(6001, options, (err, res) => {
-	 *		console.log(res.status)
-	 * })
-	 * // > _nodedash is now listening on http://localhost:6001
+	 * import _n from 'nodedash')
 	 */
 	this.import = () => {
 		return null
@@ -362,12 +278,11 @@ var error = /*#__PURE__*/Object.freeze({
 	 * Import individual ES Modules using `esm` or `TypeScript`
 	 *
 	 * @static
-	 * @memberOf _n
 	 * @since 1.0.0
 	 * @category Import
 	 * @example
 	 *
-	 * import { app } from 'nodedash'
+	 * import { App, User, error } from 'nodedash'
 	 */
 	this.modules = () => {
 		return null
@@ -379,7 +294,6 @@ var error = /*#__PURE__*/Object.freeze({
 	 * Import using `require`
 	 *
 	 * @static
-	 * @memberOf _n
 	 * @since 1.0.0
 	 * @category Require
 	 * @example
@@ -439,9 +353,7 @@ var error = /*#__PURE__*/Object.freeze({
 	 * app.listen(PORT, () => { log.magenta(`listening on port: ${PORT}`) })
 	 *
 	 */
-	this.App = (url, routes) => {
-		return new App$1({url, routes})
-	};
+	this.App = App
 
 	/*------------------------------------------------------------------------*/
 
@@ -459,7 +371,7 @@ var error = /*#__PURE__*/Object.freeze({
 	 *
 	 * const user = new _n.User({name: 'flavio', email: 'flavio.espinoza@gmail.com'})
 	 */
-	this.User = User$1;
+	this.User = User;
 
 
 	/*------------------------------------------------------------------------*/

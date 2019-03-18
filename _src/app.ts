@@ -19,24 +19,7 @@ interface Props {
 }
 
 
-/**
- * App
- *
- * @static
- * @memberOf _f
- * @since 1.0.0
- * @category Import
- * @param  {} {this.app=express(
- * @example
- *
- * const _f = require('flodash')
- *
- * const PORT = 7001
- * _f.app.listen(PORT, () => {
- *		console.log()
- * })
- * // => disco!
- */
+
 export default class App {
 	url: string
 	routes: Array<{}>

@@ -12,7 +12,7 @@
 		"start": "node ./src/server.js",
 		"debug": "nodemon -r esm --inspect ./_src/server.ts",
         "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
-        "roll": "rollup src/main.js --file nodedash.js --format cjs"
+        "roll": "rollup ./src/rollup__.js --file ./__rollup.js --format cjs"
 	},
 	"repository": {
 		"type": "git",

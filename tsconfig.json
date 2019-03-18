@@ -3,13 +3,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "pretty": true,
-    "sourceMap": false,
-    "target": "ES2018",
+    "sourceMap": true,
+    "target": "es6",
     "lib": [
-      "es2018"
+      "es6"
     ],
-    "outDir": "./src",
-    "baseUrl": "./_src",
+    "outDir": "./dist",
+    "baseUrl": "./lib",
     "strict": true,
     "esModuleInterop": true
   },

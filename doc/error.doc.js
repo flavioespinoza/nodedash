@@ -1,41 +1,37 @@
-/**
- * Error
- *
- * @static
- * @memberOf _f
- * @since 1.0.0
- * @category Import
- * @param  {} {this.app=express(
- * @example
- *
- * const _n = require('nodedash')
- * const axios = require('axios')
- *
- * const getStuff = async (url) => {
- * 	  try {
- * 		return await axios(url)
- * 	  } catch (err) {
- * 	  	return _n.error('getStuff', err)
- * 	  }
- * }
- *
- *
- * console.log(getStuff('https://bullshit.foobars'))
- * // => getStuff ERROR: getaddrinfo ENOTFOUND bullshit.foobars bullshit.foobars:443
- *
- *
- * console.log(getStuff('https://api.hitbtc.com/api/2/public/ticker/btcusd'))
- * 	// => {
- * 	// 		 ask: '4015.72',
- *  // 		 bid: '4015.71',
- *  // 		 last: '4015.78',
- *  // 		 open: '3973.59',
- *  // 		 low: '3951.00',
- *  // 		 high: '4034.32',
- *  // 		 volume: '11198.74531',
- *  // 		 volumeQuote: '44641165.4241766',
- *  // 		 timestamp: '2019-03-18T03:41:51.571Z',
- *  // 		 symbol: 'BTCUSD'
- *  // 	  }
- *
- */
+const _n = require('nodedash')
+const bodyParser = require('body-parser')
+
+const routes = [
+	{
+		method: 'get',
+		route: '/home',
+		name: 'home',
+		cb: (req, res) => {
+			res.status(200).send({
+				route: '/',
+				name: 'home'
+			})
+		}
+	},
+	{
+		method: 'get',
+		route: '/market_list',
+		name: 'market_list',
+		cb: (req, res) => {
+			res.status(200).send({
+				route: '/market_list',
+				name: 'market_list'
+			})
+		}
+	}
+]
+
+const PORT = 8080
+
+const app = new _n.App({url: 'https://mydash.com', routes: routes}).app
+
+app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.listen(PORT, () => { log.magenta(`listening on port: ${PORT}`) })
