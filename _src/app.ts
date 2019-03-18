@@ -2,11 +2,10 @@ import express = require('express')
 import bodyParser = require('body-parser')
 import axios from 'axios'
 import { Request, Response } from 'express'
-import * as _ from 'lodash'
-import { error } from './error'
+import _ from 'lodash'
+import error from './error'
 import { NextFunction } from 'connect'
-
-const log = require('ololog').configure({ locate: false })
+import log from 'ololog'
 
 const router = express.Router()
 
@@ -34,7 +33,7 @@ interface Props {
  * const routes = [
  *     	{
  * 				 method: 'get',
- * 				 route: '/home',
+ * 				  route: '/home',
  * 				 name: 'home',
  * 				 cb: (req: Request, res: Response) => {
  * 					 res.status(200).send({
@@ -43,7 +42,7 @@ interface Props {
  * 					 })
  * 				 }
  * 	 		},
- *   		{
+ *   		   {
  * 				 method: 'get',
  * 				 route: '/market_list',
  * 				 name: 'market_list',

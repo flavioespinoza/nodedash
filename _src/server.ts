@@ -1,14 +1,9 @@
 /// <reference path='./index.d.ts' />
 import bodyParser = require('body-parser')
-import router from 'express'
-import axios from 'axios'
-import { error } from './error'
 import log from 'ololog'
 import App from './app'
 import _ from 'lodash'
 import { Response, Request } from 'express-serve-static-core'
-import { NextFunction } from 'connect'
-
 
 const routes = [
 	{
@@ -46,4 +41,3 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.listen(PORT, () => {
 	log.magenta(`listening on port: ${PORT}`)
 })
-

@@ -11,8 +11,8 @@
 		"mon": "nodemon -r esm ./src/server.js",
 		"start": "node ./src/server.js",
 		"debug": "nodemon -r esm --inspect ./_src/server.ts",
-        "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
-        "roll": "rollup ./src/rollup__.js --file ./__rollup.js --format cjs"
+		"prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
+		"roll": "rollup ./src/rollup__.js --file ./__rollup.js --format cjs"
 	},
 	"repository": {
 		"type": "git",
@@ -68,6 +68,8 @@
 		"@types/ansi-colors": "^3.2.0",
 		"ansi-colors": "^3.2.4",
 		"esm": "^3.2.18",
-		"multer": "^1.4.1"
+		"multer": "^1.4.1",
+		"rollup-plugin-commonjs": "^9.2.1",
+		"rollup-plugin-node-resolve": "^4.0.1"
 	}
 }

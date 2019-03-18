@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *
  * const _f = require('flodash')
  *
- * const PORT = 7001
  * _f.user = new User({name: 'flavio', email: 'flavio.espinoza@gmail.com'})
  */
 class User {
