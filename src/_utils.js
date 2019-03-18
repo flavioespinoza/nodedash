@@ -5,7 +5,7 @@ function _mapError(method, err) {
     let res = {
         success: false,
         method: method,
-        info: undefined
+        info: 'Error'
     };
     if (typeof err === 'object') {
         let keys = _.keys(err);

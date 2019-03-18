@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import axios from 'axios'
 import { Request, Response } from 'express'
 import _ from 'lodash'
-import {_error} from '../_utils'
+import {_error} from './_utils'
 import { NextFunction } from 'connect'
 
 const router = express.Router()

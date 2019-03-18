@@ -10,7 +10,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import axios from 'axios';
 import _ from 'lodash';
-import { error } from './error';
+import { _error } from './_utils';
 const router = express.Router();
 const crypto_arr = [];
 let user_agent;
@@ -127,7 +127,7 @@ export default class Express {
         })
             .then((res) => { })
             .catch((err) => {
-            error('_rest_client', err);
+            _error('_rest_client', err);
         });
     }
     _rest_client2(market_name, url, market_info) {
@@ -157,7 +157,7 @@ export default class Express {
                 resolve(res_data);
             })
                 .catch(err => {
-                error('_rest_client', err);
+                _error('_rest_client', err);
             });
         });
     }

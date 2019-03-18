@@ -52,7 +52,7 @@
 		"docdown": "^0.7.3",
 		"esm": "^3.2.18",
 		"express": "^4.16.4",
-		"lodash": "^4.17.10",
+		"lodash": "^4.17.11",
 		"markdown-doctest": "^0.9.1",
 		"multer": "^1.4.1",
 		"ololog": "^1.1.103",
