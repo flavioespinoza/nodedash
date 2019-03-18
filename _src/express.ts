@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import axios from 'axios'
 import { Request, Response } from 'express'
 import _ from 'lodash'
-import error from './error'
+import {error} from './error'
 import { NextFunction } from 'connect'
 import _log, { log } from '@flavioespinoza/log_log/_src'
 

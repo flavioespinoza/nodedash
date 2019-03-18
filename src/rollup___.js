@@ -1,4 +1,13 @@
 /* TREE-SHAKING */
-import { cube } from './maths.js';
+import { cube, triangle, square } from './maths.js';
+import { add } from './add';
+import { subtract } from './subtract';
+import { error } from './error';
 
-console.log( cube( 5 ) ); // 125
+export {
+	add,
+	subtract,
+	error,
+	square,
+	triangle
+}

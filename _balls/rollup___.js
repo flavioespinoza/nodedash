@@ -1,4 +1,29 @@
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+// maths.js
+
+function square ( x ) {
+	return x * x;
+}
+
+function triangle ( x ) {
+	// rewrite this as `square( x ) * x`
+	// and see what happens!
+	return x * x * x;
+}
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function add(a, b) {
+    return a + b;
+}
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const subtract = (x, y) => {
+    return x - y;
+};
+
 /**
  * Error
  *
@@ -33,4 +58,11 @@ function error(method, err) {
         info: Object.assign({}, err)
     };
 }
-export { error }
+
+/* TREE-SHAKING */
+
+exports.add = add;
+exports.subtract = subtract;
+exports.error = error;
+exports.square = square;
+exports.triangle = triangle;

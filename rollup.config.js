@@ -3,9 +3,9 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 
 export default {
-	input: `src/rollup___.js`,
+	input: `src/fuckballs___.js`,
 	output: {
-		dir: './',
+		dir: './_balls',
 		format: 'cjs'
 	},
 	name: 'nodedash',

@@ -15,7 +15,7 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const axios_1 = __importDefault(require("axios"));
 const lodash_1 = __importDefault(require("lodash"));
-const error_1 = __importDefault(require("./error"));
+const error_1 = require("./error");
 const router = express_1.default.Router();
 const crypto_arr = [];
 let user_agent;
@@ -132,7 +132,7 @@ class App {
         })
             .then((res) => { })
             .catch((err) => {
-            error_1.default('_rest_client', err);
+            error_1.error('_rest_client', err);
         });
     }
     _rest_client2(market_name, url, market_info) {
@@ -162,7 +162,7 @@ class App {
                 resolve(res_data);
             })
                 .catch(err => {
-                error_1.default('_rest_client', err);
+                error_1.error('_rest_client', err);
             });
         });
     }

@@ -24,11 +24,15 @@
  * // => getStuff ERROR: getaddrinfo ENOTFOUND bullshit.foobars bullshit.foobars:443
  */
 
- export default function error(method: string, err: any) {
+function error(method: string, err: any) {
 	console.log(`${method} ERROR:`, err.message)
 	return {
 		success: false,
 		method: method,
 		info: Object.assign({}, err)
 	}
+}
+
+export {
+	error
 }
