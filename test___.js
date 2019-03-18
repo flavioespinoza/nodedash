@@ -1,5 +1,6 @@
-const _node = require('./nodedash')
+const _log = require('@flavioespinoza/log_log')
+const {log} = require('@flavioespinoza/log_log')
 
 
-
-console.log(_node)
+_log.alert('balls')
+log.blue('balls')

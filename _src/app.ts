@@ -3,9 +3,8 @@ import bodyParser from 'body-parser'
 import axios from 'axios'
 import { Request, Response } from 'express'
 import _ from 'lodash'
-import {error} from './error'
+import { _error } from '../_utils'
 import { NextFunction } from 'connect'
-import _log, { log } from '@flavioespinoza/log_log/_src'
 
 const router = express.Router()
 
@@ -132,7 +131,7 @@ export default class App {
 		})
 			.then((res: object) => {})
 			.catch((err: object) => {
-				error('_rest_client', err)
+				_error('_rest_client', err)
 			})
 	}
 
@@ -168,7 +167,7 @@ export default class App {
 					resolve(res_data)
 				})
 				.catch(err => {
-					error('_rest_client', err)
+					_error('_rest_client', err)
 				})
 		})
 	}

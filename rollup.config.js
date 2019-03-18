@@ -5,7 +5,7 @@ import commonjs from 'rollup-plugin-commonjs'
 export default {
 	input: `src/fuckballs___.js`,
 	output: {
-		dir: './_balls',
+		dir: './',
 		format: 'cjs'
 	},
 	name: 'nodedash',

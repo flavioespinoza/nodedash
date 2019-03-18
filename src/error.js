@@ -1,3 +1,5 @@
+import _log from '@flavioespinoza/log_log';
+import { _mapError } from './util';
 /**
  * Error
  *
@@ -23,13 +25,8 @@
  * console.log(getStuff('https://bullshit.foobars'))
  * // => getStuff ERROR: getaddrinfo ENOTFOUND bullshit.foobars bullshit.foobars:443
  */
-function error(method, err) {
-    console.log(`${method} ERROR:`, err.message);
-    return {
-        success: false,
-        method: method,
-        info: Object.assign({}, err)
-    };
+export function error(method, err) {
+    let _info = _mapError(method, err);
+    _log.error(_info);
+    return _info;
 }
-export { error };
-//# sourceMappingURL=error.js.map
