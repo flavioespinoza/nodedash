@@ -1,4 +1,3 @@
-"use strict";
 /**
  *
  * User Class
@@ -16,8 +15,7 @@
  * // => Hello Flavio!  Welcome to the Thunderdome!
  *
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-class User {
+export default class User {
     constructor(name, greeting) {
         this.name = name;
         this.greeting = greeting;
@@ -26,5 +24,4 @@ class User {
         return `Hello ${this.name}! ${this.greeting}`;
     }
 }
-exports.default = User;
 //# sourceMappingURL=user.js.map

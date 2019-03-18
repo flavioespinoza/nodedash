@@ -1,3 +1,15 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function add(a, b) {
+    return a + b;
+}
+
+const subtract = (x, y) => {
+    return x - y;
+};
+
 /**
  * Error
  *
@@ -31,5 +43,18 @@ function error(method, err) {
         info: Object.assign({}, err)
     };
 }
-export { error };
-//# sourceMappingURL=error.js.map
+
+/* TREE-SHAKING */
+
+exports.add = add;
+exports.subtract = subtract;
+exports.error = error;
+
+const _node = {}
+
+_node.add = add
+_node.subtract = subtract
+_node.error = error
+
+module.exports._node = _node
+
