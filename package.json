@@ -1,84 +1,84 @@
 {
-    "name": "nodedash",
-    "version": "1.0.1",
-    "description": "Node v10 typescript test driven web app",
-    "main": "nodedash.js",
-    "scripts": {
-        "build": "tsc",
-        "balls": "mocha -r esm --require ts-node/register test/**/*.ts",
-        "test": "mocha -r esm test/*.test.js",
-        "dev": "ts-node ./_src/server.ts",
-        "devts": "ts-node-dev --respawn --transpileOnly ./lib/app.ts",
-        "mon": "nodemon -r esm ./src/server.js",
-        "start": "node ./src/server.js",
-        "debug": "nodemon -r esm --inspect ./_src/server.ts",
-        "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
-        "roll": "rollup ./src/rollup__.js --file ./__rollup.js --format cjs"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://git@github.com/flavioespinoza/nodedash.git"
-    },
-    "keywords": [
-        "Node",
-        "v10",
-        "typescript",
-        "test",
-        "asyc",
-        "await",
-        "es6"
-    ],
-    "author": "Flavio Espinoza <flavio.espinoza@gmail.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/flavioespinoza/nodedash/issues"
-    },
-    "methods": {
-        "url": "https://github.com/flavioespinoza/nodedash/blob/master/methods/"
-    },
-    "homepage": "https://github.com/flavioespinoza/nodedash#readme",
-    "devDependencies": {
-        "@flavioespinoza/log_log": "^1.0.68",
-        "@types/axios": "^0.14.0",
-        "@types/colors": "^1.2.1",
-        "@types/express": "^4.16.1",
-        "@types/lodash": "^4.14.123",
-        "@types/uuid": "^3.4.4",
-        "axios": "^0.18.0",
-        "body-parser": "^1.18.3",
-        "chance": "^1.0.16",
-        "colors": "^1.3.3",
-        "docdown": "^0.7.3",
-        "esm": "^3.2.18",
-        "express": "^4.16.4",
-        "lodash": "^4.17.11",
-        "markdown-doctest": "^0.9.1",
-        "multer": "^1.4.1",
-        "ololog": "^1.1.103",
-        "rollup-plugin-commonjs": "^9.2.1",
-        "rollup-plugin-node-resolve": "^4.0.1",
-        "ts-jest": "^23.10.5",
-        "ts-node": "^8.0.3",
-        "ts-node-dev": "^1.0.0-pre.32",
-        "tslint": "^5.12.1",
-        "tslint-config-airbnb": "^5.11.1",
-        "tslint-config-prettier": "^1.18.0",
-        "tslint-react": "^3.6.0",
-        "typescript": "^3.3.3",
-        "uuid": "^3.3.2"
-    },
-    "directories": {
-        "lib": "lib",
-        "test": "test"
-    },
-    "dependencies": {
-        "@types/chai": "^4.1.7",
-        "@types/cors": "^2.8.4",
-        "@types/dotenv": "^6.1.0",
-        "@types/mocha": "^5.2.6",
-        "@types/morgan": "^1.7.35",
-        "@types/socket.io": "^2.1.2",
-        "chai": "^4.2.0",
-        "socket.io": "^2.2.0"
-    }
+  "name": "@flavs/nodedash",
+  "version": "1.0.1",
+  "description": "Node v10 typescript test driven web app",
+  "main": "nodedash.js",
+  "scripts": {
+    "build": "tsc",
+    "balls": "mocha -r esm --require ts-node/register test/**/*.ts",
+    "test": "mocha -r esm test/*.test.js",
+    "dev": "ts-node ./_src/server.ts",
+    "devts": "ts-node-dev --respawn --transpileOnly ./lib/app.ts",
+    "mon": "nodemon -r esm ./src/server.js",
+    "start": "node ./src/server.js",
+    "debug": "nodemon -r esm --inspect ./_src/server.ts",
+    "prod": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
+    "roll": "rollup ./src/rollup__.js --file ./__rollup.js --format cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@github.com/flavioespinoza/nodedash.git"
+  },
+  "keywords": [
+    "Node",
+    "v10",
+    "typescript",
+    "test",
+    "asyc",
+    "await",
+    "es6"
+  ],
+  "author": "Flavio Espinoza <flavio.espinoza@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flavioespinoza/nodedash/issues"
+  },
+  "methods": {
+    "url": "https://github.com/flavioespinoza/nodedash/blob/master/methods/"
+  },
+  "homepage": "https://github.com/flavioespinoza/nodedash#readme",
+  "devDependencies": {
+    "@flavioespinoza/log_log": "^1.0.68",
+    "@types/axios": "^0.14.0",
+    "@types/colors": "^1.2.1",
+    "@types/express": "^4.16.1",
+    "@types/lodash": "^4.14.123",
+    "@types/uuid": "^3.4.4",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "chance": "^1.0.16",
+    "colors": "^1.3.3",
+    "docdown": "^0.7.3",
+    "esm": "^3.2.18",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "markdown-doctest": "^0.9.1",
+    "multer": "^1.4.1",
+    "ololog": "^1.1.103",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3",
+    "uuid": "^3.3.2"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/cors": "^2.8.4",
+    "@types/dotenv": "^6.1.0",
+    "@types/mocha": "^5.2.6",
+    "@types/morgan": "^1.7.35",
+    "@types/socket.io": "^2.1.2",
+    "chai": "^4.2.0",
+    "socket.io": "^2.2.0"
+  }
 }
