@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import axios from 'axios'
 import { Request, Response } from 'express'
 import _ from 'lodash'
-import _error from './_error'
+import _error from '../_src/_error'
 import { NextFunction } from 'connect'
 
 const router = express.Router()
@@ -47,7 +47,7 @@ interface Props {
  *
  */
 
-export default class App {
+export class App {
 	url: string
 	routes: Array<{}>
 

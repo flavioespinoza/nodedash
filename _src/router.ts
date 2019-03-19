@@ -1,10 +1,7 @@
-/*
-/// <reference path='./index.d.ts' />
 import router from 'express'
 import bodyParser = require('body-parser')
-import router from 'express'
 import axios from 'axios'
-import { error } from './error'
+import Error from './Error'
 import log from 'ololog'
 import App from './app'
 import _ from 'lodash'
@@ -53,8 +50,3 @@ const routes = fs
 	.readdirSync(path.join(__dirname))
 	.filter(file => (file.indexOf('.') !== 0) && (file !== baseName) && (file.slice(-3) === '.js'))
 	.map(file => require(path.join(__dirname, file)))
-
-
-// router.get('/list_simple', jwtAuth, getAuthenticatedUser)
-// router.get('/list_compound', jwtAuth, getAuthenticatedUser)
-*/

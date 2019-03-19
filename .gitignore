@@ -3,6 +3,9 @@
 /node_modules
 /.idea
 /.vscode
+/sandbox
+
+
 
 yarn.lock
 package-lock.json
