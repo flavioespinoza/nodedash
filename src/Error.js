@@ -32,5 +32,7 @@ class Error {
         return _info;
     }
 }
-export { Error };
+const _error = Error;
+export { _error };
+export default Error;
 //# sourceMappingURL=Error.js.map

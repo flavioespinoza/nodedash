@@ -49,4 +49,5 @@ const public = [
 const routes = fs
 	.readdirSync(path.join(__dirname))
 	.filter(file => (file.indexOf('.') !== 0) && (file !== baseName) && (file.slice(-3) === '.js'))
-	.map(file => require(path.join(__dirname, file)))
+    .map(file => require(path.join(__dirname, file)))
+    

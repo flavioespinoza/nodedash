@@ -8,4 +8,4 @@ class User {
     }
 }
 export { User };
-//# sourceMappingURL=User.js.map
+//# sourceMappingURL=User.1.js.map

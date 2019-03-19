@@ -7,12 +7,12 @@ const log = require('ololog').configure({locate: false})
 const _ = require('lodash')
 const axios = require('axios')
 
-const _error = function (method, err) {
+const _error = function (method: string, err: any) {
 	log.lightYellow(`${method}__ERROR`, err.message)
 }
 
 
-const _errorSocket = function (method, err, socket) {
+const _errorSocket = function (method: string, err: any, socket: any) {
 	log.lightYellow(`${method}__ERROR`, err.message)
 	if (socket) {
 		socket.emit(`${method}__ERROR`, err.message)
@@ -20,7 +20,7 @@ const _errorSocket = function (method, err, socket) {
 }
 
 
-let _symbols_arr = []
+let _symbols_arr: Array<any> = []
 
 // ES Constant
 /**
@@ -142,7 +142,7 @@ let _lower_bound = 1
 /**
  * @param {{:}}
  * */
-let _quote = []
+let _quote: Array<any> = []
 let _quote_state = {btc: true, usdt: true, eth: true}
 
 // IGNORE LIST
@@ -155,8 +155,6 @@ let _show_watchlist = false
 
 let _min = 0
 let _max = 70000
-
-
 
 const user_prefs_default = {
 
@@ -216,10 +214,8 @@ const user_prefs_default = {
 
 }
 
-
-
 // MARKET INFO - SINGLE MARKET
-async function es_market_info (market, prefs) {
+async function es_market_info (market: any, prefs: any) {
 	try {
 
 		prefs._symbols_arr[market.symbol]
@@ -234,11 +230,11 @@ async function es_market_info (market, prefs) {
 
 		const hits_total = scanner.data.hits.total
 
-		const source = _.map(hits, (obj) => {
+		const source = _.map(hits, (obj: any) => {
 			return obj._source
 		})
 
-		return _.sortBy(source, (obj) => {
+		return _.sortBy(source, (obj: any) => {
 			return obj.timestamp
 		})
 
@@ -247,16 +243,16 @@ async function es_market_info (market, prefs) {
 	}
 }
 
-async function api_market_info (market) {
+async function api_market_info (market: any) {
 	try {
 		let _url = utils._url_interval(market.pairing, market.interval)
 		let get_candles = await axios.get(_url)
 		let raw_data = get_candles.data
-		let candle_data = []
-		_.each(raw_data, function (obj) {
+		let candle_data: Array<object> = []
+		_.each(raw_data, function (obj: any) {
 			candle_data.push(utils._map_candle(obj, market, 'market_info'))
 		})
-		return _.sortBy(candle_data, (obj) => {
+		return _.sortBy(candle_data, (obj: any) => {
 			return obj.timestamp
 		})
 	} catch (err) {
@@ -267,7 +263,7 @@ async function api_market_info (market) {
 
 
 // IGNORE_LISTS - CURRENT
-const _query_ignore_list = (ignore_list_symbol) => {
+const _query_ignore_list = (ignore_list_symbol: boolean) => {
 
 	return {
 		query: {
@@ -289,7 +285,7 @@ const _query_ignore_list = (ignore_list_symbol) => {
 
 }
 
-async function es_ignore_list (query) {
+async function es_ignore_list (query: JSON) {
 
 	try {
 
@@ -303,16 +299,16 @@ async function es_ignore_list (query) {
 
 		let hits_total = scanner.data.hits.total
 
-		let source = _.map(hits, (obj) => {
+		let source = _.map(hits, (obj: any) => {
 			return obj._source
 		})
 
-		let ignore_list = _.map(source, (obj) => {
+		let ignore_list = _.map(source, (obj: any) => {
 			obj.is_ignore_list = true
 			return obj
 		})
 
-		return _.sortBy(ignore_list, (obj) => {
+		return _.sortBy(ignore_list, (obj: any) => {
 			return -(obj.timestamp)
 		})
 
@@ -322,15 +318,15 @@ async function es_ignore_list (query) {
 
 }
 
-async function gather_ignore_list (ignore_list_symbols) {
+async function gather_ignore_list (ignore_list_symbols: boolean) {
 
 	try {
 
-		let _q = _query_ignore_list(ignore_list_symbols)
+		let _q: any = _query_ignore_list(ignore_list_symbols)
 
 		let _get_ignore_list = await es_ignore_list(_q)
 
-		return _.sortBy(_get_ignore_list, (obj) => {
+		return _.sortBy(_get_ignore_list, (obj: any) => {
 			return obj.symbol
 		})
 
@@ -343,7 +339,7 @@ async function gather_ignore_list (ignore_list_symbols) {
 
 
 // WATCHLIST - CURRENT
-const _query_watchlist = (watchlist_symbols) => {
+const _query_watchlist = (watchlist_symbols: Array<string>) => {
 
 	return {
 		query: {
@@ -365,7 +361,7 @@ const _query_watchlist = (watchlist_symbols) => {
 
 }
 
-async function es_watchlist (query) {
+async function es_watchlist (query: JSON) {
 
 	try {
 
@@ -379,11 +375,11 @@ async function es_watchlist (query) {
 
 		let hits_total = scanner.data.hits.total
 
-		let source = _.map(hits, (obj) => {
+		let source = _.map(hits, (obj: any) => {
 			return obj._source
 		})
 
-		return _.sortBy(source, (obj) => {
+		return _.sortBy(source, (obj: any) => {
 			return obj.timestamp
 		})
 
@@ -393,15 +389,15 @@ async function es_watchlist (query) {
 
 }
 
-async function gather_watchlist (watchlist_symbols) {
+async function gather_watchlist (watchlist_symbols:  Array<string>) {
 
 	try {
 
-		let _q = _query_watchlist(watchlist_symbols)
+		let _q: any = _query_watchlist(watchlist_symbols)
 
 		let _get_watchlist = await es_watchlist(_q)
 
-		return _.sortBy(_get_watchlist, (obj) => {
+		return _.sortBy(_get_watchlist, (obj: any) => {
 			return obj.symbol
 		})
 
@@ -446,7 +442,7 @@ async function _all_markets () {
 
 		let hits = scanner.data.hits.hits
 
-		let all_hits = _.map(hits, (obj) => {
+		let all_hits = _.map(hits, (obj: any) => {
 
 			return obj._source
 
@@ -454,7 +450,7 @@ async function _all_markets () {
 
 
 		// Data to send
-		const all_markets = _.sortBy(all_hits, (obj) => {
+		const all_markets = _.sortBy(all_hits, (obj: any) => {
 
 			return -(obj.timestamp)
 
@@ -471,7 +467,7 @@ async function _all_markets () {
 
 
 // SIMPLE LIST DATA
-async function get_simple_data (prefs, _q) {
+async function get_simple_data (prefs: any, _q: any) {
 
 	try {
 
@@ -482,24 +478,23 @@ async function get_simple_data (prefs, _q) {
 
 		let hits = scanner.data.hits.hits
 
-		let all_hits = []
+		let all_hits: Array<any> = []
 
-		_.each(hits, function (obj) {
-
+		_.each(hits, function (obj: any) {
+            let source: any = obj._source
+            let symbol: any = source.symbol
 			if (obj._source.symbol) {
-
-				all_hits.push(obj._source)
-
+				all_hits.push(obj)
 			}
 
-		})
-
+        })
+        
 		let recent = utils._most_recent(all_hits, prefs._interval, true)
 
 		// Data to Send
 		let items = recent.most_recent
 
-		let volume_quote_btc_24h = _.map(items, function (obj) {
+		let volume_quote_btc_24h = _.map(items, function (obj: any) {
 			return obj.volume_quote_btc_24h
 		})
 
@@ -547,7 +542,7 @@ async function get_simple_data (prefs, _q) {
 
 }
 
-function io_simple_data (_q, socket, prefs) {
+function io_simple_data (_q: any, socket: any, prefs: any) {
 	(async function () {
 
 		try {
@@ -571,7 +566,7 @@ function io_simple_data (_q, socket, prefs) {
 
 
 // COMPOUND LIST DATA
-async function get_compound_data (prefs) {
+async function get_compound_data (prefs: any) {
 
 	try {
 
@@ -579,11 +574,11 @@ async function get_compound_data (prefs) {
 		let get_obo = await utils._calculate_obo(prefs)
 		let get_trades = await utils._calculate_trades_history(prefs)
 
-		let items_compound = []
+		let items_compound: Array<any> = []
 
-		_.each(get_items, function (obj) {
+		_.each(get_items, function (obj: any) {
 
-			_.each(prefs._watchlist_symbols, (sym) => {
+			_.each(prefs._watchlist_symbols, (sym: any) => {
 
 				if (sym === obj.symbol) {
 
@@ -598,7 +593,7 @@ async function get_compound_data (prefs) {
 
 			})
 
-			_.each(prefs._ignore_list_symbols, (sym) => {
+			_.each(prefs._ignore_list_symbols, (sym: any) => {
 
 				if (sym === obj.symbol) {
 
@@ -612,13 +607,13 @@ async function get_compound_data (prefs) {
 				}
 			})
 
-			let obo = _.find(get_obo, (order_book_order) => {
+			let obo = _.find(get_obo, (order_book_order: any) => {
 
 				return order_book_order.market_name === obj.market_name
 
 			})
 
-			let trades = _.find(get_trades, (trade) => {
+			let trades = _.find(get_trades, (trade: any) => {
 
 				return trade.market_name === obj.market_name
 
@@ -662,7 +657,7 @@ async function get_compound_data (prefs) {
 
 }
 
-function io_compound_data (socket, prefs) {
+function io_compound_data (socket: any, prefs: any) {
 	(async function () {
 		try {
 			let compound_data = await get_compound_data(prefs)
@@ -682,7 +677,7 @@ function io_compound_data (socket, prefs) {
 
 
 // UNIVERSAL DATA
-async function get_all_simple_data (prefs) {
+async function get_all_simple_data (prefs: any) {
 
 	try {
 
@@ -695,7 +690,7 @@ async function get_all_simple_data (prefs) {
 
 		let hits = scanner.data.hits.hits
 
-		let all_hits = _.map(hits, (obj) => {
+		let all_hits = _.map(hits, (obj: any) => {
 
 			return obj._source
 
@@ -705,7 +700,7 @@ async function get_all_simple_data (prefs) {
 
 
 		// Data to send
-		const items_all = _.sortBy(most_recent, function (obj) {
+		const items_all = _.sortBy(most_recent, function (obj: any) {
 
 			return -(obj.timestamp)
 
@@ -716,13 +711,13 @@ async function get_all_simple_data (prefs) {
 		// Result
 		return {
 
-			items_all: _.sortBy(items_all, (obj) => {
+			items_all: _.sortBy(items_all, (obj: any) => {
 
 			    return -(obj.timestamp)
 
 			}),
 
-			all_markets: _.sortBy(all_markets, (obj) => {
+			all_markets: _.sortBy(all_markets, (obj: any) => {
 
 				return -(obj.timestamp)
 
@@ -736,7 +731,7 @@ async function get_all_simple_data (prefs) {
 
 }
 
-function io_all_simple_data (socket, prefs) {
+function io_all_simple_data (socket: any, prefs: any) {
 	(async function () {
 		try {
 			if (!prefs) {
@@ -762,16 +757,16 @@ function io_all_simple_data (socket, prefs) {
 
 let _count = 0
 
-let cache_id
+let cache_id: any
 
 if (_count === 0) {
 	cache_id = _.now()
 }
 
 // MODULE EXPORTS
-const SocketEvents = (io) => {
+const SocketEvents = (io: SocketIO.Server) => {
 
-	io.on('connection', (socket) => {
+	io.on('connection', (socket: any) => {
 
 		
 		log.lightYellow('connection.....', socket.id)
@@ -779,7 +774,7 @@ const SocketEvents = (io) => {
 		socket.emit('cache_id', cache_id)
 
 		// Compound & Simple & Universal Data Init on Authentication
-		socket.on('authenticated_user', (data) => {
+		socket.on('authenticated_user', (data: any) => {
 			(async function () {
 
 				socket.emit('auth_user', data.auth_user)
@@ -809,7 +804,7 @@ const SocketEvents = (io) => {
 		})
 
 		// Universal Data (all_markets, etc...)
-		socket.on('get_all_simple_data', (data) => {
+		socket.on('get_all_simple_data', (data: any) => {
 			(async function () {
 
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
@@ -832,7 +827,7 @@ const SocketEvents = (io) => {
 
 
 		// Compound List Data & Filters
-		socket.on('get_compound_data', (data) => {
+		socket.on('get_compound_data', (data: any) => {
 			(async function () {
 
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
@@ -847,7 +842,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('vol_multiplier', (data) => {
+		socket.on('vol_multiplier', (data: any) => {
 			(async function () {
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
 
@@ -865,7 +860,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('vol_recent_hrs', (data) => {
+		socket.on('vol_recent_hrs', (data: any) => {
 			(async function () {
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
 
@@ -887,7 +882,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('vol_past_hrs', (data) => {
+		socket.on('vol_past_hrs', (data: any) => {
 			(async function () {
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
 
@@ -905,7 +900,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('obo_recent_hrs', (data) => {
+		socket.on('obo_recent_hrs', (data: any) => {
 			(async function () {
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
 
@@ -927,7 +922,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('obo_past_hrs', (data) => {
+		socket.on('obo_past_hrs', (data: any) => {
 			(async function () {
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
 
@@ -945,7 +940,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('obo_multiplier', (data) => {
+		socket.on('obo_multiplier', (data: any) => {
 			(async function () {
 
 				_log.cyan('obo_multiplier')
@@ -969,7 +964,7 @@ const SocketEvents = (io) => {
 
 
 		// Simple List Data & Filters
-		socket.on('get_simple_data', (data) => {
+		socket.on('get_simple_data', (data: any) => {
 			(async function () {
 
 				let get_prefs = await utils._get_user_prefs(data.auth_user, user_prefs_default, null)
@@ -983,7 +978,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('interval', (data) => {
+		socket.on('interval', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref(data)
@@ -995,7 +990,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('set_percent_up', (data) => {
+		socket.on('set_percent_up', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref_percent_props(data)
@@ -1007,7 +1002,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('set_percent_down', (data) => {
+		socket.on('set_percent_down', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref_percent_props(data)
@@ -1019,7 +1014,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('show_percent_props', (data) => {
+		socket.on('show_percent_props', (data: any) => {
 			(async function () {
 
 				data.side = 'show'
@@ -1035,7 +1030,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('hide_percent_props', (data) => {
+		socket.on('hide_percent_props', (data: any) => {
 			(async function () {
 
 				data.side = 'hide'
@@ -1051,7 +1046,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('lower_bound', (data) => {
+		socket.on('lower_bound', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref(data)
@@ -1063,7 +1058,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('upper_bound', (data) => {
+		socket.on('upper_bound', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref(data)
@@ -1075,7 +1070,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('filter_by_quote', (data) => {
+		socket.on('filter_by_quote', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref_quote(data)
@@ -1089,7 +1084,7 @@ const SocketEvents = (io) => {
 
 
 		// Watchlist & Ignore List
-		socket.on('set_watchlist_symbols', (data) => {
+		socket.on('set_watchlist_symbols', (data: any) => {
 			(async function () {
 
 				let update = await utils._update_user_pref_watchlist_symbols(data)
@@ -1099,7 +1094,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('set_ignore_list_symbols', (data) => {
+		socket.on('set_ignore_list_symbols', (data: any) => {
 			(async function () {
 
 				log.lightMagenta(data.auth_user.path_name)
@@ -1126,7 +1121,7 @@ const SocketEvents = (io) => {
 			})()
 		})
 
-		socket.on('get_market_details', (data) => {
+		socket.on('get_market_details', (data: any) => {
 			(async function () {
 
 				let candle_data = await api_market_info(data)

@@ -6,17 +6,16 @@
 		"lib": ["es2016"],
 		"module": "es6",
 		"target": "es6",
-		"outDir": "./test/",
+		"outDir": "./src/",
 		"baseUrl": "/",
 		"strict": true,
 		"esModuleInterop": true,
 		"noImplicitAny": true,
 		"suppressImplicitAnyIndexErrors": true,
-
 		"jsx": "react",
         "declaration": true
 	},
 	"sourceMap": true,
-	"include": ["test/**/*.ts"],
-	"exclude": ["node_modules", "_lib", "lib", "_src", ]
+	"include": ["_src/**/*.ts"],
+	"exclude": ["node_modules", "_lib", "lib"]
 }

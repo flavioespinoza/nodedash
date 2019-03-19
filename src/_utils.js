@@ -1,9 +1,2 @@
-import error, { _error } from './_error';
-const _utils = {
-    error
-};
-exports = {
-    _error
-};
-module.exports = _utils;
+"use strict";
 //# sourceMappingURL=_utils.js.map
