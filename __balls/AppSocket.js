@@ -18,7 +18,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importStar(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const socket_io_1 = __importDefault(require("socket.io"));
-const SocketEvents_1 = __importDefault(require("./SocketEvents"));
 // load NODE_ENV from .env
 dotenv_1.default.load();
 /**
@@ -134,9 +133,7 @@ class AppSocket {
             log_log_1.default.info(`app listening on PORT: ${this.port}`);
         });
         const _io = socket_io_1.default.listen(server);
-        SocketEvents_1.default(_io);
         return app;
     }
 }
-exports.default = AppSocket;
-//# sourceMappingURL=AppSocket.js.map
+module.exports = AppSocket;

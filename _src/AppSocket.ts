@@ -6,7 +6,6 @@ import dotenv from 'dotenv'
 import express, { Router } from 'express'
 import morgan from 'morgan'
 import io from 'socket.io'
-import SocketEvents from './SocketEvents'
 
 // load NODE_ENV from .env
 dotenv.load()
@@ -143,7 +142,6 @@ export default class AppSocket {
 
         const _io = io.listen(server)
 
-        SocketEvents(_io)
 
         return app
     }
