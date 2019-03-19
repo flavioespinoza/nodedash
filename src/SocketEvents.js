@@ -380,8 +380,10 @@ function get_simple_data(prefs, _q) {
             let hits = scanner.data.hits.hits;
             let all_hits = [];
             _.each(hits, function (obj) {
+                let source = obj._source;
+                let symbol = source.symbol;
                 if (obj._source.symbol) {
-                    all_hits.push(obj._source);
+                    all_hits.push(obj);
                 }
             });
             let recent = utils._most_recent(all_hits, prefs._interval, true);

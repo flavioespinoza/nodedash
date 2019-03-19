@@ -1,7 +1,7 @@
 /// <reference path='./custom.d.ts' />
 import bodyParser from 'body-parser'
 import log from 'ololog'
-import App from './app'
+import App from './ExpressApp'
 import _ from 'lodash'
 import { Response, Request } from 'express-serve-static-core'
 
