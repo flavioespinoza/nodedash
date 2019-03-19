@@ -72,5 +72,8 @@
 		"lib": "lib",
 		"test": "test"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"@types/chai": "^4.1.7",
+		"@types/mocha": "^5.2.6"
+	}
 }
