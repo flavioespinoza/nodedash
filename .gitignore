@@ -4,8 +4,7 @@
 /.idea
 /.vscode
 /sandbox
-
-
+/_sandbox
 
 yarn.lock
 package-lock.json
