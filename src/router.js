@@ -1,8 +1,5 @@
-"use strict";
-/*
-/// <reference path='./index.d.ts' />
 import router from 'express'
-import bodyParser = require('body-parser')
+import bodyParser from 'body-parser'
 import router from 'express'
 import axios from 'axios'
 import { error } from './error'
@@ -56,7 +53,7 @@ const routes = fs
     .map(file => require(path.join(__dirname, file)))
 
 
-// router.get('/list_simple', jwtAuth, getAuthenticatedUser)
-// router.get('/list_compound', jwtAuth, getAuthenticatedUser)
-*/
-//# sourceMappingURL=router.js.map
+router.get('/list_simple', jwtAuth, getAuthenticatedUser)
+router.get('/list_compound', jwtAuth, getAuthenticatedUser)
+
+

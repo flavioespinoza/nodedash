@@ -1,4 +1,5 @@
-import _log, { log } from '@flavioespinoza/log_log';
+import _log from '@flavioespinoza/log_log';
+import _ from 'lodash';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -6,67 +7,122 @@ import express, { Router } from 'express';
 import morgan from 'morgan';
 import io from 'socket.io';
 import SocketEvents from './SocketEvents';
-import { RoutesList } from './Routes';
-const _list = [
-    {
-        method: 'get', route: 'home'
-    },
-    {
-        method: 'get', route: 'profile'
-    },
-    {
-        method: 'get', route: 'settings'
-    }
-];
-const list = new RoutesList({ list: _list }).list();
-log.magenta(list);
 // load NODE_ENV from .env
 dotenv.load();
-const logger = morgan('combined');
-const PORT = process.env.PORT || 6001;
-const _routes = Router();
-_routes.get('/home', (req, res, next) => {
-    res.send({
-        route: '/home',
-        sucesss: true
-    });
-});
-_routes.get('/profile', (req, res, next) => {
-    res.send({
-        route: '/profile',
-        sucesss: true
-    });
-});
-_routes.get('/settings', (req, res, next) => {
-    res.send({
-        route: '/settings',
-        sucesss: true
-    });
-});
 /**
- * Express App Server with Socket.io WebSocket
+ *
+ * Express Router
+ *
+ * @static
+ * @memberOf _node
+ * @category App
+ * @param {{routeList:Array}} Array of Objects with http.method and route name
+ * @param {{routeObj:Object}} Object Each object has two properties `method` and `route` and `params`
+ * @param {{routeObj.method}} String `get` or `post` or `put`
+ * @param {{routeObj.route}} String Route name `home` or `profile` or `settings` or `whatevs :)`
+ * @param {{routeObj.params}} Object JSON request query specific to your application
+ * @returns {{router:expres.Router}} Router of specified routes
+ * @example
+ *
+ * const routeList = [
+ *      {
+ *          method: 'get',
+ *          route: 'home',
+ *          params: {}
+ *      },
+ *      {
+ *          method: 'get',
+ *          route: 'profile',
+ *          params: {}
+ *      },
+ *      {
+ *          method: 'get',
+ *          route: 'settings',
+ *          params: {}
+ *      }
+ * ]
+ *
+ * const router = new _node.BuildRoutes(routeList).init()
+ *
+ * const port = 6001
+ *
+ * const app = new _node.AppSocket(port, router).init()
+ *
+ * */
+export class BuildRouter {
+    constructor(routeList, router) {
+        this.routeList = routeList;
+        this.router = Router();
+    }
+    init() {
+        _.each(this.routeList, (obj) => {
+            if (obj.method === 'get') {
+                this.router.get(obj.route, (req, res, next) => {
+                    res.send({
+                        method: 'get',
+                        route: obj.route,
+                        sucesss: true
+                    });
+                });
+            }
+            else if (obj.method === 'post') {
+                this.router.post(obj.route, (req, res, next) => {
+                    res.send({
+                        method: 'post',
+                        route: obj.route,
+                        sucesss: true
+                    });
+                });
+            }
+            else if (obj.method === 'put') {
+                this.router.put(obj.route, (req, res, next) => {
+                    res.send({
+                        method: 'put',
+                        route: obj.route,
+                        sucesss: true
+                    });
+                });
+            }
+        });
+        return this.router;
+    }
+}
+/**
+ * Express App with Socket.io WebSocket
  *
  * @static
  * @memberOf _node
  * @category App
  * @param {{port:Number}} Number 4 Digit integer that the server and socket are listens on
- * @param {{routes:Array}} Array of strings designating route names
+ * @param {{router:express.Router}} Router built with the _node.BuildRoutes class
+ * @returns {{app:express.Application}} Express App with Socket.io Websocket
  * @example
  *
- * const port = 6001
- * const routes = _node.Router(['/', 'route_name_1', 'route_name_2'])
+ * const router = "Note: the router is the second @param and is built with the BuidlRouter class, See:" _node.BuildRouter
  *
- * const app = _node.AppSocket({ port, routes })
+ * const port = 6001
+ *
+ * const app = new _node.AppSocket(port, router).init()
  *
  * */
-const app = express();
-app.use(logger);
-app.use(cors());
-app.use(bodyParser());
-app.use(_routes);
-const server = app.listen(PORT, () => {
-    _log.info(`app listening on PORT: ${PORT}`);
-});
-const _io = io.listen(server);
-SocketEvents(_io);
+export default class AppSocket {
+    constructor(port, router) {
+        this.port = port | 6001;
+        this.router = router;
+    }
+    init() {
+        const logger = morgan('combigned');
+        const app = express();
+        app.use(logger);
+        app.use(cors());
+        app.use(bodyParser());
+        app.use(this.router);
+        const server = app.listen(this.port, () => {
+            _log.info(`app listening on PORT: ${this.port}`);
+        });
+        const _io = io.listen(server);
+        SocketEvents(_io);
+        return app;
+    }
+}
 //# sourceMappingURL=AppSocket.js.map
